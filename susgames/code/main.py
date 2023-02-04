@@ -42,18 +42,18 @@ def run(screen):
                     # TODO: Add code to open settings menu
                     pass
                 
-    # Clear screen
-    screen.fill((0, 0, 0))
-    
-    # Draw buttons
-    screen.blit(play_button, play_rect)
-    screen.blit(quit_button, quit_rect)
-    
-    # Draw settings button circle
-    pygame.draw.circle(screen, (255, 255, 255), (settings_x, settings_y), settings_radius)
-    
-    # Update screen
-    pygame.display.update()
+        # Clear screen
+        screen.fill((0, 0, 0))
+        
+        # Draw buttons
+        screen.blit(play_button, play_rect)
+        screen.blit(quit_button, quit_rect)
+
+        # Draw settings button circle
+        pygame.draw.circle(screen, (255, 255, 255), (settings_x, settings_y), settings_radius)
+
+        # Update screen
+        pygame.display.update()
 
 # Quit pygame
 pygame.quit()
