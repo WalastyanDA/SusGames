@@ -1,14 +1,15 @@
 import pygame
 import startMenu
+#import domGame.domGame as domGame
 
-def show(screen):
+def show(screen: pygame.surface):
         
     # Load font for menu buttons
     font = pygame.font.Font(None, 30)
 
     # Define menu buttons
     back_button = font.render("Back", True, (255, 255, 255))
-    game_buttons = [font.render("Minigame 1", True, (255, 255, 255)),
+    game_buttons = [font.render("domGame", True, (255, 255, 255)),
                     font.render("Minigame 2", True, (255, 255, 255)),
                     font.render("Minigame 3", True, (255, 255, 255))]
     game_rects = [button.get_rect(center=(400, 200 + 100 * i)) for i, button in enumerate(game_buttons)]
@@ -50,12 +51,22 @@ def show(screen):
                 if back_rect.collidepoint(mouse_pos):
                     # Go back to main menu
                     startMenu.show(screen)
-                    
-                for rect in game_rects:
+                
+                
+                for minigame, rect in enumerate(game_rects):
                     if rect.collidepoint(mouse_pos):
                         # Start a minigame
                         # TODO: Add code to start a minigame
-                        pass
+
+                        # replace the passes with the code to start the corresponding game
+                        match minigame:
+                            case 0:
+                                pass
+                            case 1:
+                                pass
+                            case 2:
+                                pass
+                    
                 if (settings_x - mouse_pos[0])**2 + (settings_y - mouse_pos[1])**2 < settings_radius**2:
                     # Open settings menu
                     # TODO: Add code to open settings menu
