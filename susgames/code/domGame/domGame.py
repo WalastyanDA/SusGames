@@ -6,6 +6,7 @@ from pygame.locals import (
     K_LEFT,
     K_RIGHT,
     K_ESCAPE,
+    K_SPACE,
     KEYDOWN,
     QUIT,
 )
@@ -13,38 +14,46 @@ from pygame.locals import (
 from constants import *
 from box import Box
 from floor import Floor
+from rock import Rock
+
+NUMBER_OF_ROCKS = 5
 
 pygame.init()
 
 clock = pygame.time.Clock()
 
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+screen.fill(WHITE)
 box = Box()
 floor = Floor()
 
+rocks = [None] * NUMBER_OF_ROCKS
+for i in range(NUMBER_OF_ROCKS):
+    rocks[i] = Rock()
+
 running = True
 while running:
-    # Handle events
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
 
-        if event.type == KEYDOWN:
-            if event.key == K_ESCAPE:
-                running = False
+        if event.type == pygame.KEYDOWN:
+            if pygame.key.get_pressed()[K_SPACE]:
+                box.succ(floor)
+
 
     pressed_keys = pygame.key.get_pressed()
 
     box.update(pressed_keys)
 
-    for x in range (box.rect.left, box.rect.right):
-        for y in range(box.rect.top, box.rect.bottom):
-            floor.surf.set_at((x, y), WHITE)
-
-    screen.fill((255, 255, 255))
-
+    if floor.allPainted():
+        running = False
+    
     screen.blit(floor.surf, floor.rect)
     screen.blit(box.surf, box.rect)
+
+    for i in range(NUMBER_OF_ROCKS):
+        screen.blit(rocks[i].image, rocks[i].rect)
 
     pygame.display.flip()
     clock.tick(FRAME_RATE)
