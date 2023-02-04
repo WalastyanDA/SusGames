@@ -21,25 +21,26 @@ settings_x = 780
 settings_y = 20
 
 # Main loop
-running = True
-while running:
-    # Handle events
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
-        elif event.type == pygame.MOUSEBUTTONUP:
-            # Check if buttons were clicked
-            mouse_pos = pygame.mouse.get_pos()
-            if play_rect.collidepoint(mouse_pos):
-                # Start the game
-                # TODO: Add code to start a minigame
-                pass
-            elif quit_rect.collidepoint(mouse_pos):
+def run(screen):
+    running = True
+    while running:
+        # Handle events
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
                 running = False
-            elif (settings_x - mouse_pos[0])**2 + (settings_y - mouse_pos[1])**2 < settings_radius**2:
-                # Open settings menu
-                # TODO: Add code to open settings menu
-                pass
+            elif event.type == pygame.MOUSEBUTTONUP:
+                # Check if buttons were clicked
+                mouse_pos = pygame.mouse.get_pos()
+                if play_rect.collidepoint(mouse_pos):
+                    # Context switch to gamesList.py
+                    import gamesList
+                    gamesList.run(screen)
+                elif quit_rect.collidepoint(mouse_pos):
+                    running = False
+                elif (settings_x - mouse_pos[0])**2 + (settings_y - mouse_pos[1])**2 < settings_radius**2:
+                    # Open settings menu
+                    # TODO: Add code to open settings menu
+                    pass
                 
     # Clear screen
     screen.fill((0, 0, 0))
