@@ -7,7 +7,6 @@ class Rock(pygame.sprite.Sprite):
     def __init__(self):
         super(Rock, self).__init__()
         self.surf = pygame.Surface((80, 80))
-        #self.surf.fill(GREY)
         self.rect = self.surf.get_rect()
         self.image = pygame.image.load(
             "./susgames/assets/images/domGame/rock.png"
