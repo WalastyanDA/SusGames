@@ -41,19 +41,19 @@ while running:
             if pygame.key.get_pressed()[K_SPACE]:
                 box.succ(floor)
 
-
     pressed_keys = pygame.key.get_pressed()
 
-    box.update(pressed_keys)
+    box.update(pressed_keys, rocks)
 
     if floor.allPainted():
         running = False
     
     screen.blit(floor.surf, floor.rect)
-    screen.blit(box.surf, box.rect)
 
     for i in range(NUMBER_OF_ROCKS):
         screen.blit(rocks[i].image, rocks[i].rect)
+
+    screen.blit(box.image, box.rect)
 
     pygame.display.flip()
     clock.tick(FRAME_RATE)
