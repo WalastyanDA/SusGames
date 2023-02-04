@@ -1,17 +1,16 @@
 import pygame
 import startMenu
 import conveyorGame
-
-from utils import ASSETS_PATH
-
+import os
+from utils import ASSETS_PATH, IMAGE_PATH, FONTS_PATH
 #import domGame.domGame as domGame
 
 def show(screen: pygame.surface):
     # load background image
-    bg = pygame.image.load(ASSETS_PATH.joinpath("images/startBackground.png"))
+    bg = pygame.image.load(os.path.join(IMAGE_PATH, "startBackground.png"))
     
     # Load font for menu buttons
-    font = pygame.font.Font(ASSETS_PATH.joinpath("fonts/KenneyBold.ttf"), 30)
+    font = pygame.font.Font(os.path.join(FONTS_PATH, "KenneyBold.ttf"), 30)
 
     # Define menu buttons
     back_button = font.render("Back", True, (255, 255, 255))
@@ -38,9 +37,6 @@ def show(screen: pygame.surface):
         screen.blit(back_button, back_rect)
         for button, rect in zip(game_buttons, game_rects):
             screen.blit(button, rect)
-        
-        # Draw settings button circle
-        pygame.draw.circle(screen, (255, 255, 255), (settings_x, settings_y), settings_radius)
         
         # Update screen
         pygame.display.update()
@@ -73,11 +69,6 @@ def show(screen: pygame.surface):
                                 game.start()
                             case 2:
                                 pass
-                    
-                if (settings_x - mouse_pos[0])**2 + (settings_y - mouse_pos[1])**2 < settings_radius**2:
-                    # Open settings menu
-                    # TODO: Add code to open settings menu
-                    pass
                     
         
 
