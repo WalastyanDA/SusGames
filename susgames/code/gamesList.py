@@ -1,16 +1,21 @@
 import pygame
 import startMenu
+import conveyorGame
+import os
+from utils import ASSETS_PATH, IMAGE_PATH, FONTS_PATH
 #import domGame.domGame as domGame
 
 def show(screen: pygame.surface):
-        
+    # load background image
+    bg = pygame.image.load(os.path.join(IMAGE_PATH, "startBackground.png"))
+    
     # Load font for menu buttons
-    font = pygame.font.Font(None, 30)
+    font = pygame.font.Font(os.path.join(FONTS_PATH, "KenneyBold.ttf"), 30)
 
     # Define menu buttons
     back_button = font.render("Back", True, (255, 255, 255))
     game_buttons = [font.render("domGame", True, (255, 255, 255)),
-                    font.render("Minigame 2", True, (255, 255, 255)),
+                    font.render("Conveyor Game", True, (255, 255, 255)),
                     font.render("Minigame 3", True, (255, 255, 255))]
     game_rects = [button.get_rect(center=(400, 200 + 100 * i)) for i, button in enumerate(game_buttons)]
 
@@ -26,15 +31,12 @@ def show(screen: pygame.surface):
     running = True
     while running:
         # Clear screen
-        screen.fill((0, 0, 0))
+        screen.blit(bg, (0,0))
         
         # Draw buttons
         screen.blit(back_button, back_rect)
         for button, rect in zip(game_buttons, game_rects):
             screen.blit(button, rect)
-        
-        # Draw settings button circle
-        pygame.draw.circle(screen, (255, 255, 255), (settings_x, settings_y), settings_radius)
         
         # Update screen
         pygame.display.update()
@@ -63,14 +65,10 @@ def show(screen: pygame.surface):
                             case 0:
                                 pass
                             case 1:
-                                pass
+                                game = conveyorGame.ConveyorGame(screen)
+                                game.start()
                             case 2:
                                 pass
-                    
-                if (settings_x - mouse_pos[0])**2 + (settings_y - mouse_pos[1])**2 < settings_radius**2:
-                    # Open settings menu
-                    # TODO: Add code to open settings menu
-                    pass
                     
         
 
