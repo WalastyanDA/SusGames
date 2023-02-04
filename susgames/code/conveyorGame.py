@@ -2,6 +2,23 @@ import pygame
 import random
 import time
 
+class RubbishItem:
+    def __init__(self, size: int, x: int, y):
+        self.category = random.choice(
+            ["Metal", "Paper", "Glass", "Plastic", "Unrecyclable"])
+        self.size = size
+        self.x = x
+        self.y = y
+    def get_color(self):
+        colors = {
+            "Metal":(255, 0, 0), 
+            "Paper": (255, 255, 0), 
+            "Glass": (0, 255, 0), 
+            "Plastic": (0, 0, 255),
+            "Unrecyclable": (0,0,0)
+            }
+        return colors[self.category]
+
 class ConveyorGame:
     def __init__(self, screen: pygame.Surface):
         self.handleEvents
@@ -23,12 +40,11 @@ class ConveyorGame:
 
 
     def add_object(self):
-        print(self.screen_width)
-        x = random.randint(self.conveyor_x, self.conveyor_x + self.conveyor_height)
-        y = self.screen_height * 0.5
-        category = random.choice(["Metal", " Paper", " Glass", " Plastic", " Unrecyclable"])
+        y = random.randint(self.conveyor_x, self.conveyor_x + self.conveyor_height) + 0.5*self.screen_height - 0.5*self.conveyor_height
+        x = self.screen_width * 0.1
         size = random.randint(10,30)
-        self.objects.append([x, y, category, size])
+        new_item = RubbishItem(size, x, y)
+        self.objects.append(new_item) # , size
         print("Spawned Object")
         self.spawn_time = pygame.time.get_ticks()
 
@@ -67,12 +83,12 @@ class ConveyorGame:
             self.screen.blit(text, text_rect)
         
         # Move the objects
-        for i, (x, y, category) in enumerate(self.objects):
-            x += self.conveyor_speed
-            if x > self.screen_width:
+
+        for i, item in enumerate(self.objects):
+            item.x += self.conveyor_speed
+            if item.x > self.screen_width or item.y < 0:
                 self.objects.pop(i)
-            else:
-                self.objects[i] = (x, y, category)
+
 
         current_time = pygame.time.get_ticks()
         if current_time - self.spawn_time > 500: # 1000ms = 1s
@@ -80,20 +96,9 @@ class ConveyorGame:
             self.spawn_time = current_time
 
         # Draw the objects
-        for x, y, category in self.objects:
-            print(self.objects)
-            if category == 'Metal':
-                color = (255, 0, 0) # red
-            elif category == 'Glass':
-                color = (0, 255, 0) # green
-            elif category == 'Plastic':
-                color = (0, 0, 255) # blue
-            elif category == 'Paper':
-                color = (255, 255, 0) # yellow
-            elif category == 'Unrecyclable':
-                color = (0,0,0) #black
+        for item in self.objects:
 
-            pygame.draw.circle(self.screen, color, (x, y), self.object_radius)
+            pygame.draw.circle(self.screen, item.get_color(), (item.x, item.y), item.size)
 
 
 
