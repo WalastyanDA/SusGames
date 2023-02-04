@@ -1,5 +1,6 @@
 import pygame
 import startMenu
+import conveyorGame
 #import domGame.domGame as domGame
 
 def show(screen: pygame.surface):
@@ -10,7 +11,7 @@ def show(screen: pygame.surface):
     # Define menu buttons
     back_button = font.render("Back", True, (255, 255, 255))
     game_buttons = [font.render("domGame", True, (255, 255, 255)),
-                    font.render("Minigame 2", True, (255, 255, 255)),
+                    font.render("Conveyor Game", True, (255, 255, 255)),
                     font.render("Minigame 3", True, (255, 255, 255))]
     game_rects = [button.get_rect(center=(400, 200 + 100 * i)) for i, button in enumerate(game_buttons)]
 
@@ -63,7 +64,8 @@ def show(screen: pygame.surface):
                             case 0:
                                 pass
                             case 1:
-                                pass
+                                game = conveyorGame.ConveyorGame(screen)
+                                game.start()
                             case 2:
                                 pass
                     
