@@ -1,4 +1,5 @@
 import pygame
+import startMenu
 
 def show(screen):
         
@@ -48,8 +49,8 @@ def show(screen):
                 mouse_pos = pygame.mouse.get_pos()
                 if back_rect.collidepoint(mouse_pos):
                     # Go back to main menu
-                    # TODO: Add code to go back to main menu
-                    pass
+                    startMenu.show(screen)
+                    
                 for rect in game_rects:
                     if rect.collidepoint(mouse_pos):
                         # Start a minigame
