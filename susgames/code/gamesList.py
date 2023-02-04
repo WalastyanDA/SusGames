@@ -1,12 +1,17 @@
 import pygame
 import startMenu
 import conveyorGame
+
+from utils import ASSETS_PATH
+
 #import domGame.domGame as domGame
 
 def show(screen: pygame.surface):
-        
+    # load background image
+    bg = pygame.image.load(ASSETS_PATH.joinpath("images/startBackground.png"))
+    
     # Load font for menu buttons
-    font = pygame.font.Font(None, 30)
+    font = pygame.font.Font(ASSETS_PATH.joinpath("fonts/KenneyBold.ttf"), 30)
 
     # Define menu buttons
     back_button = font.render("Back", True, (255, 255, 255))
@@ -27,7 +32,7 @@ def show(screen: pygame.surface):
     running = True
     while running:
         # Clear screen
-        screen.fill((0, 0, 0))
+        screen.blit(bg, (0,0))
         
         # Draw buttons
         screen.blit(back_button, back_rect)
