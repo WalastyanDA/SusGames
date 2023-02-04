@@ -6,11 +6,13 @@ from pygame.locals import (
     K_LEFT,
     K_RIGHT,
     K_ESCAPE,
+    K_SPACE,
     KEYDOWN,
     QUIT,
 )
 
 from constants import *
+from helper import getRectInBounds
 
 class Box(pygame.sprite.Sprite):
     def __init__(self):
@@ -28,14 +30,16 @@ class Box(pygame.sprite.Sprite):
             self.rect.move_ip(-5, 0)
         if pressed_keys[K_RIGHT]:
             self.rect.move_ip(5, 0)
+            
+        self.rect = getRectInBounds(self.rect)
 
-        if self.rect.left < 0:
-            self.rect.left = 0
-        if self.rect.right > SCREEN_WIDTH:
-            self.rect.right = SCREEN_WIDTH; 
-        if self.rect.top <= 0:
-            self.rect.top = 0
-        if self.rect.bottom >= SCREEN_HEIGHT:
-            self.rect.bottom = SCREEN_HEIGHT
+    def succ(self, floor):
+        area = pygame.Rect(
+            self.rect.x - ((SUCC_RADIUS - self.rect.width) / 2),
+            self.rect.y - ((SUCC_RADIUS - self.rect.height) / 2),
+            SUCC_RADIUS,
+            SUCC_RADIUS
+        )
+        area = getRectInBounds(area)
 
-
+        floor.paintRect(area)
