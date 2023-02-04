@@ -76,6 +76,14 @@ while time() < startTime + CLEANUP_TIME:
 
     screen.blit(box.image, box.rect)
 
+    font = pygame.font.SysFont(None, 24)
+    timer = font.render(
+        str(round((CLEANUP_TIME - (time() - startTime)), 1)),
+        True,
+        WHITE
+    )
+    screen.blit(timer, (0, 0))
+
     pygame.display.flip()
     clock.tick(FRAME_RATE)
 
