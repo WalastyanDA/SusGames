@@ -5,8 +5,10 @@ import gamesList
 def show(screen: pygame.surface):
     """Shows the main menu on the pygame surface"""
     
+    bg = pygame.image.load("susgames/assets/images/startBackground.png")
+    
     # Load font for menu buttons
-    font = pygame.font.Font(None, 30)
+    font = pygame.font.Font("susgames/assets/fonts/KennyBold.ttf", 30)
 
     # Define menu buttons
     play_button = font.render("Play", True, (255, 255, 255))
@@ -24,7 +26,7 @@ def show(screen: pygame.surface):
     running = True
     while running:
         # Clear screen
-        screen.fill((0, 0, 0))
+        screen.blit(bg, (0,0))
         # Draw buttons
         screen.blit(play_button, play_rect)
         screen.blit(quit_button, quit_rect)
