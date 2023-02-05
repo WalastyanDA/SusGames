@@ -98,13 +98,13 @@ def show(screen: pygame.surface):
         pygame.display.flip()
         clock.tick(FRAME_RATE)
 
-        if boat.sucked == NUMBER_OF_OILS or time() - startTime > 30:
+        if boat.sucked == NUMBER_OF_OILS or (time() - startTime) > CLEANUP_TIME:
             loop = False
 
     endTime = time()
 
     endText = ""
-    if endTime - startTime >= 30:
+    if endTime - startTime >= CLEANUP_TIME:
         endText = "You failed to clean up in time!"
     else:
         endText = "You cleaned up in " + str(round((endTime - startTime), 1)) + " seconds!"
