@@ -8,9 +8,3 @@ screen = pygame.display.set_mode((800, 600))
 
 
 startMenu.show(screen)
-
-
-# Quit pygame
-pygame.display.quit()
-pygame.quit()
-sys.exit()
