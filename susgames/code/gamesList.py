@@ -2,7 +2,7 @@ import pygame
 import startMenu
 import conveyorGame
 import os
-from utils import ASSETS_PATH, IMAGE_PATH, FONTS_PATH
+from utils import ASSETS_PATH, IMAGE_PATH, FONTS_PATH, quitGame
 #import domGame.domGame as domGame
 
 def show(screen: pygame.surface):
@@ -45,8 +45,7 @@ def show(screen: pygame.surface):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-                pygame.quit()
-                exit()
+                quitGame()
             elif event.type == pygame.MOUSEBUTTONUP:
                 # Check if buttons were clicked
                 mouse_pos = pygame.mouse.get_pos()

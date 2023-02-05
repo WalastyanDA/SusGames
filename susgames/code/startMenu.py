@@ -2,7 +2,7 @@ import pygame
 import os
 import gamesList
 import spriteButton
-from utils import ASSETS_PATH, IMAGE_PATH, FONTS_PATH
+from utils import ASSETS_PATH, IMAGE_PATH, FONTS_PATH, quitGame
 
 # Main menu
 def show(screen: pygame.surface):
@@ -56,8 +56,7 @@ def show(screen: pygame.surface):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-                pygame.quit()
-                exit()
+                quitGame()
             elif event.type == pygame.MOUSEBUTTONUP:
                 # Check if buttons were clicked
                 mouse_pos = pygame.mouse.get_pos()
@@ -72,6 +71,6 @@ def show(screen: pygame.surface):
                     # TODO: Add code to open settings menu
                     print("test")
                 
-        
+    quitGame()
 
 
