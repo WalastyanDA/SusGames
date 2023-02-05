@@ -1,4 +1,6 @@
 import pygame
+import os
+
 
 from pygame.locals import (
     K_UP,
@@ -7,14 +9,14 @@ from pygame.locals import (
     K_RIGHT,
 )
 
-from OilSpill.constants import BOAT_SIZE, SUCK_COOLDOWN
+from OilSpill.constants import *
 from OilSpill.helper import getRectInBounds
 
 class Boat(pygame.sprite.Sprite):
     def __init__(self):
         super(Boat, self).__init__()
         self.image = pygame.image.load(
-            "./susgames/assets/images/OilSpill/boat.png"
+            os.path.join(OIL_IMAGE_PATH, "boat.png")
         )
         self.baseImage = self.image.copy()
         self.rect = pygame.Rect((0, 0), (BOAT_SIZE, BOAT_SIZE))
