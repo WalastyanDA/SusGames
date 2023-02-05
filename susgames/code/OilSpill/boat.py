@@ -7,7 +7,7 @@ from pygame.locals import (
     K_RIGHT,
 )
 
-from constants import *
+from constants import BOAT_SIZE, SUCK_COOLDOWN
 from helper import getRectInBounds
 
 class Boat(pygame.sprite.Sprite):
@@ -18,8 +18,8 @@ class Boat(pygame.sprite.Sprite):
         )
         self.baseImage = self.image.copy()
         self.rect = pygame.Rect((0, 0), (BOAT_SIZE, BOAT_SIZE))
-        self.succCooldown = 0
-        self.succed = 0
+        self.suckCooldown = 0
+        self.sucked = 0
 
     def update(self, pressed_keys, rocks):
         if pressed_keys[K_UP]:
@@ -48,18 +48,18 @@ class Boat(pygame.sprite.Sprite):
             
         self.rect = getRectInBounds(self.rect)
         
-        if self.succCooldown > 0:
-            self.succCooldown -= 1
+        if self.suckCooldown > 0:
+            self.suckCooldown -= 1
 
-    def succ(self, oils):
-        if self.succCooldown == 0:
+    def suck(self, oils):
+        if self.suckCooldown == 0:
             for oil in oils:
                 if pygame.sprite.collide_mask(self, oil):
                     oils.remove(oil)
-                    self.succed += 1
+                    self.sucked += 1
                     break
 
-            self.succCooldown = 20
+            self.suckCooldown = SUCK_COOLDOWN
 
     def overlaps(self, rocks):
         for rock in rocks:
@@ -67,4 +67,3 @@ class Boat(pygame.sprite.Sprite):
                 return True
 
         return False
-

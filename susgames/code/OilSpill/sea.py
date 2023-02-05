@@ -1,14 +1,10 @@
 import pygame
 
-from constants import *
+from constants import SCREEN_WIDTH, SCREEN_HEIGHT
 
-BASE_COLOUR = TRANSPARENT
-COVER_COLOUR = BLACK
-
-
-class Floor(pygame.sprite.Sprite):
+class Sea(pygame.sprite.Sprite):
     def __init__(self):
-        super(Floor, self).__init__()
+        super(Sea, self).__init__()
         self.image = pygame.image.load(
             "./susgames/assets/images/OilSpill/sea.png"
         )

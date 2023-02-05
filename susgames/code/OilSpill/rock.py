@@ -1,7 +1,7 @@
 import pygame
 from random import randint
 
-from constants import *
+from constants import SCREEN_WIDTH, SCREEN_HEIGHT, ROCK_SIZE
 
 class Rock(pygame.sprite.Sprite):
     def __init__(self):
