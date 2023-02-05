@@ -1,4 +1,4 @@
-from OilSpill.constants import *
+from OilSpill.constants import SCREEN_HEIGHT, SCREEN_WIDTH
 
 def getRectInBounds(rect):
     if rect.left < 0:

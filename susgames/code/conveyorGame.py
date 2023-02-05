@@ -3,12 +3,13 @@ import random
 import time
 
 class RubbishItem:
-    def __init__(self, size: int, x: int, y):
+    def __init__(self, size: int, x: int, y: int, drag: bool):
         self.category = random.choice(
             ["Metal", "Paper", "Glass", "Plastic", "Unrecyclable"])
         self.size = size
         self.x = x
         self.y = y
+        self.bool = False
     def get_color(self):
         colors = {
             "Metal":(255, 0, 0), 
@@ -122,17 +123,30 @@ class ConveyorGame:
         self.screen.blit(text, text_rect)
         pygame.display.update()
 
+    def getBinCoordinates(self,mouseX,mouseY):
+        bin_height = self.screen_height * 0.8
+        self.binCoords = {
+            "Metal": (((self.screen_width/3)*2) - bin_height/2,((self.screen_width/3)*2) - bin_height),
+            "Papers": (((self.screen_width/3)*2) - bin_height/2,((self.screen_width/3)*1)- bin_height),
+            "Plastics": (((self.screen_width/3)*1) - bin_height/2,((self.screen_width/3)*2) - bin_height),
+            "Glass": (((self.screen_width/3)*1) - bin_height/2,((self.screen_width/3)*1)- bin_height)
+        }
+        
+        return ""
+
     def handleEvents(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-            elif event.type == pygame.MOUSEBUTTONUP:
+            elif event.type == pygame.MOUSEBUTTONDOWN:
                 # handle mouse click events to pick up objects and place them in bins
                 mouse_x, mouse_y = pygame.mouse.get_pos()
                 for i, (x, y, category) in enumerate(self.objects):
                     # check if the mouse is over the object
                     if x < mouse_x < x + self.object_width and y - self.object_height / 2 < mouse_y < y + self.object_height / 2:
-                        self.itemBinned(category, self.getBinForCoordinates(mouse_x, mouse_y))
+                        #If mouse is over an object, set dragging to true
+                        self.objects[i] = True
+                        self.itemBinned(category, self.getBinCoordinates(mouse_x, mouse_y))
                         del self.objects[i]
                         break
 

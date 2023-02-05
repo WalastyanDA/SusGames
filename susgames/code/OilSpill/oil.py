@@ -1,13 +1,14 @@
 import pygame
 from random import randint
+import os
 
-from OilSpill.constants import SCREEN_WIDTH, SCREEN_HEIGHT, OIL_WIDTH, OIL_HEIGHT
+from OilSpill.constants import SCREEN_WIDTH, SCREEN_HEIGHT, OIL_WIDTH, OIL_HEIGHT, OIL_IMAGE_PATH
 
 class Oil(pygame.sprite.Sprite):
     def __init__(self):
         super(Oil, self).__init__()
         self.image = pygame.image.load(
-            "./susgames/assets/images/OilSpill/oil.png"
+            os.path.join(OIL_IMAGE_PATH, "oil.png")
         )
         x = randint(0, SCREEN_WIDTH - OIL_WIDTH)
         y = randint(0, SCREEN_HEIGHT - OIL_HEIGHT)

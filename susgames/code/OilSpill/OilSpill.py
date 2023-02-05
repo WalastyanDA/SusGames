@@ -7,8 +7,8 @@ from pygame.locals import (
 from time import time, sleep
 
 import startMenu
+from utils import *
 from OilSpill.constants import *
-
 from OilSpill.boat import Boat
 from OilSpill.sea import Sea
 from OilSpill.oil import Oil
@@ -67,8 +67,7 @@ def show(screen: pygame.surface):
     while loop:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                pygame.display.quit()
-                pygame.quit()
+                quitGame()
 
             if event.type == pygame.KEYDOWN:
                 if pygame.key.get_pressed()[K_SPACE]:
@@ -114,7 +113,12 @@ def show(screen: pygame.surface):
         True,
         WHITE
     )
-    screen.blit(score, (SCREEN_WIDTH / 2 - (score.get_rect().width / 2), SCREEN_HEIGHT / 2 - (score.get_rect().height / 2)))
+    scoreWidthHalf = score.get_rect().width / 2
+    scoreHeightHalf = score.get_rect().height / 2
+    screen.blit(
+        score, 
+        (SCREEN_WIDTH / 2 - scoreWidthHalf, SCREEN_HEIGHT / 2 - scoreHeightHalf)
+    )
     pygame.display.flip()
     sleep(5)
 

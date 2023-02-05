@@ -1,4 +1,7 @@
 import pygame
+import os
+
+import utils
 
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
@@ -22,3 +25,5 @@ OIL_HEIGHT = 69
 
 CLEANUP_TIME = 30
 SUCK_COOLDOWN = 20
+
+OIL_IMAGE_PATH = os.path.join(utils.IMAGE_PATH, "OilSpill")
