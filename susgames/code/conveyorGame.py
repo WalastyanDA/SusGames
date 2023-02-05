@@ -50,10 +50,15 @@ class ConveyorGame:
 
     def draw(self):
         #print("w: ", self.screen_height, "h: ", self.screen_height)
+        self.conveyor_width = self.screen_width * 0.8
+        self.conveyor_height = self.screen_height * 0.2
         self.conveyor_x = self.screen_width * 0.1
         self.conveyor_y = self.screen_height * 0.5
-        self.conveyor_width = self.screen_width * 0.8
-        self.conveyor_height = self.screen_height * 0.1
+        print(self.conveyor_y)
+
+        #test rectangle (red)
+        rectangle = pygame.Rect(10,300,10,10)
+        pygame.draw.rect(self.screen, (255,0,0),rectangle)
 
         # Draw the conveyor
         conveyor_rect = pygame.Rect(self.conveyor_x, self.conveyor_y, self.conveyor_width, self.conveyor_height)
