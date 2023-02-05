@@ -9,7 +9,7 @@ class RubbishItem:
         self.size = size
         self.x = x
         self.y = y
-        self.bool = False
+        self.drag = False
     def get_color(self):
         colors = {
             "Metal":(255, 0, 0), 
@@ -22,6 +22,7 @@ class RubbishItem:
 
 class ConveyorGame:
     def __init__(self, screen: pygame.Surface):
+        self.draggedItems = []
         self.handleEvents
         self.screen = screen
         self.clock = pygame.time.Clock()
@@ -91,7 +92,10 @@ class ConveyorGame:
         # Move the objects
 
         for i, item in enumerate(self.objects):
-            item.x += self.conveyor_speed
+            if not item.drag:
+                item.x += self.conveyor_speed
+            else:
+                item.x, item.y = pygame.mouse.get_pos()
             if item.x > self.screen_width or item.y < 0:
                 self.objects.pop(i)
 
@@ -141,14 +145,24 @@ class ConveyorGame:
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 # handle mouse click events to pick up objects and place them in bins
                 mouse_x, mouse_y = pygame.mouse.get_pos()
-                for i, (x, y, category) in enumerate(self.objects):
+                for i, item in enumerate(self.objects):
                     # check if the mouse is over the object
-                    if x < mouse_x < x + self.object_width and y - self.object_height / 2 < mouse_y < y + self.object_height / 2:
+                    if item.x < mouse_x < (item.x + self.object_width) and item.y - self.object_height / 2 < mouse_y < item.y + self.object_height / 2:
                         #If mouse is over an object, set dragging to true
-                        self.objects[i] = True
-                        self.itemBinned(category, self.getBinCoordinates(mouse_x, mouse_y))
-                        del self.objects[i]
+                        self.objects[i].drag = True
+                        self.draggedItems.append(item)
+                        
                         break
+            elif event.type == pygame.MOUSEBUTTONUP:
+                # any dragged objects will stop being dragged
+                for i, item in enumerate(self.draggedItems):
+                    self.itemBinned(
+                            item.category, 
+                            self.getBinCoordinates(mouse_x, mouse_y)
+                        )
+                    item.drag = False
+                    self.draggedItems.pop(i)
+                
 
 
     def start(self):
