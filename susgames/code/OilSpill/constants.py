@@ -1,5 +1,7 @@
-SCREEN_WIDTH = 800
-SCREEN_HEIGHT = 600
+import pygame
+
+SCREEN_WIDTH = pygame.display.get_surface().get_width()   #800
+SCREEN_HEIGHT = pygame.display.get_surface().get_height() #600
 
 FRAME_RATE = 30
 CLEANUP_TIME = 10
