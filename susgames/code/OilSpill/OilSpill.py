@@ -19,7 +19,6 @@ def show(screen: pygame.surface):
     clock = pygame.time.Clock()
     font = pygame.font.SysFont(None, FONT_SIZE)
 
-
     pygame.display.set_caption("Oil Spill")
 
     boat = Boat()
