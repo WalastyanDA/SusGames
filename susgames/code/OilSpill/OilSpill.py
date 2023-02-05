@@ -11,22 +11,36 @@ from pygame.locals import (
     QUIT,
 )
 
-from time import time as time
+from time import time, sleep
 
 from constants import *
-from box import Box
+from boat import Boat
 from floor import Floor
+from oil import Oil
 from rock import Rock
-
-NUMBER_OF_ROCKS = 5
 
 pygame.init()
 
 clock = pygame.time.Clock()
+font = pygame.font.SysFont(None, 40)
 
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-screen.fill(WHITE)
+pygame.display.set_caption("Oil Spill")
+
 floor = Floor()
+
+oils = []
+while len(oils) < NUMBER_OF_OILS:
+    newOil = Oil()
+
+    collide = False
+    for oil in oils:
+        if pygame.sprite.collide_mask(oil, newOil):
+            collide = True
+            break;
+
+    if not collide:
+        oils.append(newOil)
 
 rocks = []
 while len(rocks) < NUMBER_OF_ROCKS:
@@ -41,18 +55,18 @@ while len(rocks) < NUMBER_OF_ROCKS:
     if not collide:
         rocks.append(newRock)
 
-box = None
-while box == None:
-    newBox = Box()
+boat = None
+while boat == None:
+    newBoat = Boat()
 
     collide = False
     for rock in rocks:
-        if pygame.sprite.collide_mask(rock, newBox):
+        if pygame.sprite.collide_mask(rock, newBoat):
             collide = True
             break;
 
     if not collide:
-        box = newBox
+        boat = newBoat
 
 startTime = time()
 while time() < startTime + CLEANUP_TIME:
@@ -63,20 +77,22 @@ while time() < startTime + CLEANUP_TIME:
 
         if event.type == pygame.KEYDOWN:
             if pygame.key.get_pressed()[K_SPACE]:
-                box.succ(floor)
+                boat.succ(oils)
 
     pressed_keys = pygame.key.get_pressed()
 
-    box.update(pressed_keys, rocks)
+    boat.update(pressed_keys, rocks)
 
-    screen.blit(floor.surf, floor.rect)
+    screen.blit(floor.image, floor.rect)
+
+    for i in range(NUMBER_OF_OILS - boat.succed):
+        screen.blit(oils[i].image, oils[i].rect)
 
     for i in range(NUMBER_OF_ROCKS):
         screen.blit(rocks[i].image, rocks[i].rect)
 
-    screen.blit(box.image, box.rect)
+    screen.blit(boat.image, boat.rect)
 
-    font = pygame.font.SysFont(None, 24)
     timer = font.render(
         str(round((CLEANUP_TIME - (time() - startTime)), 1)),
         True,
@@ -87,7 +103,17 @@ while time() < startTime + CLEANUP_TIME:
     pygame.display.flip()
     clock.tick(FRAME_RATE)
 
-print(str(floor.cleaned))
+screen.blit(floor.image, floor.rect)
+score = font.render(
+    str(boat.succed),
+    True,
+    WHITE
+)
+screen.blit(score, (0, 0))
+pygame.display.flip()
+sleep(10)
+
+print(str(boat.succed))
 
 pygame.display.quit()
 pygame.quit()
