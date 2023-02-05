@@ -131,9 +131,11 @@ class ConveyorGame:
             "Plastics": (((self.screen_width/3)*1) - bin_height/2,((self.screen_width/3)*2) - bin_height),
             "Glass": (((self.screen_width/3)*1) - bin_height/2,((self.screen_width/3)*1)- bin_height)
         }
-        
+        for bin_type, coords in self.binCoords.items():
+            if mouseX >= coords[0] and mouseX <= coords[0] + bin_height and mouseY >= coords[1] and mouseY <= coords[1] + bin_height:
+                return bin_type
         return ""
-
+        
     def handleEvents(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -149,7 +151,7 @@ class ConveyorGame:
                         self.itemBinned(category, self.getBinCoordinates(mouse_x, mouse_y))
                         del self.objects[i]
                         break
-
+                            
 
     def start(self):
         running = True
