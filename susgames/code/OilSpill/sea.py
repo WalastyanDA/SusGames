@@ -1,6 +1,6 @@
 import pygame
 
-from constants import SCREEN_WIDTH, SCREEN_HEIGHT
+from OilSpill.constants import SCREEN_WIDTH, SCREEN_HEIGHT
 
 class Sea(pygame.sprite.Sprite):
     def __init__(self):

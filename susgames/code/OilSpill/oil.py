@@ -1,7 +1,7 @@
 import pygame
 from random import randint
 
-from constants import SCREEN_WIDTH, SCREEN_HEIGHT, OIL_WIDTH, OIL_HEIGHT
+from OilSpill.constants import SCREEN_WIDTH, SCREEN_HEIGHT, OIL_WIDTH, OIL_HEIGHT
 
 class Oil(pygame.sprite.Sprite):
     def __init__(self):

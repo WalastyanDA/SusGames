@@ -1,4 +1,4 @@
-from constants import *
+from OilSpill.constants import *
 
 def getRectInBounds(rect):
     if rect.left < 0:

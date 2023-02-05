@@ -3,7 +3,7 @@ import startMenu
 import conveyorGame
 import os
 from utils import ASSETS_PATH, IMAGE_PATH, FONTS_PATH, quitGame
-#import domGame.domGame as domGame
+import OilSpill.OilSpill as oilSpill
 
 def show(screen: pygame.surface):
     # load background image
@@ -62,7 +62,7 @@ def show(screen: pygame.surface):
                         # replace the passes with the code to start the corresponding game
                         match minigame:
                             case 0:
-                                pass
+                                oilSpill.show(screen)
                             case 1:
                                 game = conveyorGame.ConveyorGame(screen)
                                 game.start()

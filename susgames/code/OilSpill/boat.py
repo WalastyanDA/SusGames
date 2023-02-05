@@ -7,8 +7,8 @@ from pygame.locals import (
     K_RIGHT,
 )
 
-from constants import BOAT_SIZE, SUCK_COOLDOWN
-from helper import getRectInBounds
+from OilSpill.constants import BOAT_SIZE, SUCK_COOLDOWN
+from OilSpill.helper import getRectInBounds
 
 class Boat(pygame.sprite.Sprite):
     def __init__(self):
